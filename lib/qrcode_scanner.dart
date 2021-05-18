@@ -32,6 +32,7 @@ class _QrcodeScannerState extends State<QrcodeScanner> {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           '#ff6666', 'Cancel', true, ScanMode.QR);
       print(barcodeScanRes);
+      
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }

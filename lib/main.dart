@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'qrcode_scanner.dart';
+import 'http_data.dart';
 void main() {
   runApp(MyApp());
 }
@@ -10,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         home: Scaffold(
       appBar: AppBar(
-        title: Text('HKT線上教室'),
+        title: Text('Covid Autofill'),
       ),
       body: HomePage(),
     ));
@@ -22,8 +23,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: ElevatedButton(
-      child: Text('Camera'),
-      onPressed: activate,
+      child: Text('QEcode Scanner'),
+      onPressed: request,
     ));
   }
 
