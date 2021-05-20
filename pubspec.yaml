@@ -33,10 +33,14 @@ dependencies:
   barcode_widget: ^1.5.0
   flutter_login: ^1.1.0
   http: ^0.13.3
+  path_provider: 
+  json_annotation: 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner:
+  json_serializable: 
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
