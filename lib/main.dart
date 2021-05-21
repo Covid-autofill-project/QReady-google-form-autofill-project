@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
     return Center(
       child: ElevatedButton(
       child: Text('QEcode Scanner'),
-      onPressed: request,
+      onPressed: activate,
     ));
   }
 
