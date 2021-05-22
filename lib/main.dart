@@ -23,7 +23,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: ElevatedButton(
-      child: Text('QEcode Scanner'),
+      child: Text('QRcode Scanner'),
       onPressed: request,
     ));
   }
