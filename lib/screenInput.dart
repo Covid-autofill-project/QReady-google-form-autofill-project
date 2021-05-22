@@ -15,41 +15,44 @@ class ScreenInput extends StatelessWidget {
             title: new Text("Second Page"), backgroundColor: Colors.deepOrange),
         body: new Container(
             child: Center(
-                child: Flexible(
-                    child: Column(children: <Widget>[
-          TextField(
-              decoration: InputDecoration(
-                labelText: 'Name',
-                hintText: '本名',
-              ),
-              controller: nameController),
-          TextField(
-              decoration: InputDecoration(
-                labelText: 'Phone',
-                hintText: '電話號碼',
-              ),
-              controller: phoneController),
-          TextField(
-              decoration: InputDecoration(
-                labelText: 'Email',
-                hintText: '電子郵件',
-              ),
-              controller: emailController),
-          TextField(
-              decoration: InputDecoration(
-                labelText: 'ID Number',
-                hintText: '身分證字號',
-              ),
-              controller: idController),
+                child: Column(children: <Widget>[
+          Expanded(
+              child: TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Name',
+                    hintText: '本名',
+                  ),
+                  controller: nameController)),
+          Expanded(
+              child: TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Phone',
+                    hintText: '電話號碼',
+                  ),
+                  controller: phoneController)),
+          Expanded(
+              child: TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                    hintText: '電子郵件',
+                  ),
+                  controller: emailController)),
+          Expanded(
+              child: TextField(
+                  decoration: InputDecoration(
+                    labelText: 'ID Number',
+                    hintText: '身分證字號',
+                  ),
+                  controller: idController)),
           TextButton(
-            child: Text('印出輸入框內容'),
+            child: Text('存入Json File'),
             onPressed: btnEvent,
           ),
           TextButton(
             child: Text('印出儲存內容'),
             onPressed: btnEvent2,
           )
-        ])))));
+        ]))));
   }
 
   void btnEvent() {
