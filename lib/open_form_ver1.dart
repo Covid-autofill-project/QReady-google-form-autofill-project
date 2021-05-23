@@ -6,6 +6,10 @@ import 'package:url_launcher/url_launcher.dart';
 // open the form in an in-app brower (not outside app (e.g. chrome, safari..))
 
 class FormView extends StatefulWidget {
+  FormView ({Key? key, required this.url}): super(key:key);
+
+  final url;
+
   @override
   _FormView createState() => _FormView();
 }
@@ -17,8 +21,7 @@ class _FormView extends State<FormView> {
   double progress = 0;
   final urlController = TextEditingController();
 
-  String url =
-      "https://docs.google.com/forms/d/e/1FAIpQLScw30Eq9oRONqVv_tLolp0BubC8LfIMllCgffOoLbD7MJpuBg/viewform?emailAddress=123@gmail.com&entry.770857854=%E5%8A%89%E8%B1%AA%E5%B2%A1&entry.1613430569=1";
+  // String url = "https://docs.google.com/forms/d/e/1FAIpQLScw30Eq9oRONqVv_tLolp0BubC8LfIMllCgffOoLbD7MJpuBg/viewform?emailAddress=123@gmail.com&entry.770857854=%E5%8A%89%E8%B1%AA%E5%B2%A1&entry.1613430569=1";
 
   @override
   void initState() {
@@ -34,7 +37,7 @@ class _FormView extends State<FormView> {
   Widget build(BuildContext context) {
     return InAppWebView(
       key: webViewKey,
-      initialUrlRequest: URLRequest(url: Uri.parse(url)),
+      initialUrlRequest: URLRequest(url: Uri.parse(widget.url)),
     );
   }
 }
