@@ -1,11 +1,10 @@
 import 'dart:collection';
 import 'package:http/http.dart' as http;
 
-const name = 'test';
-const email = 'test@gmail.com';
-const people = 1; 
-
 void request() async {
+  var local_file = HashMap();
+  local_file['一起進場人數'] = 9;
+  local_file['姓名'] = 'test';
   // This example uses the Google Books API to search for books about http.
   // https://developers.google.com/books/docs/overview
   var list = "https://docs.google.com/forms/d/e/1FAIpQLScw30Eq9oRONqVv_tLolp0BubC8LfIMllCgffOoLbD7MJpuBg/viewform";
@@ -35,7 +34,11 @@ void request() async {
     print(entry);
     hash[keyword] = entry;
     index = data.indexOf('data-params');
-    
   }
-
+  var final_url = list+"?";
+  hash.forEach((key, value) {
+    final_url += "entry.${value}=${local_file[key]}&";
+  });
+  print(final_url);
+  
 }
