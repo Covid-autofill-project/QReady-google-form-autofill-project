@@ -7,11 +7,11 @@ import 'package:http/http.dart' as http;
 import 'open_form_ver1.dart';
 
 void request(String list) async {
-  var local_file = HashMap();
-  local_file['同行人數'] = 7;
-  local_file['電子郵電'] = 'test@gmail.com';
-  local_file['電話'] = '09123456789';
-  local_file['姓名'] = 'test';
+  var localfile = HashMap();
+  localfile['同行人數'] = 7;
+  localfile['電子郵電'] = 'test@gmail.com';
+  localfile['電話'] = '09123456789';
+  localfile['姓名'] = 'test';
   // This example uses the Google Books API to search for books about http.
   // https://developers.google.com/books/docs/overview
   var url = Uri.parse(list);
@@ -43,7 +43,7 @@ void request(String list) async {
   }
   var finalurl = list+"?";
   hash.forEach((key, value) {
-    finalurl += "entry.${value}=${local_file[key]}&";
+    finalurl += "entry.$value=${localfile[key]}&";
   });
   print(finalurl);
   runApp(FormView(url:finalurl));
