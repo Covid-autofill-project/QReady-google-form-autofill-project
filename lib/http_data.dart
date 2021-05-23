@@ -1,8 +1,9 @@
 import 'dart:collection';
-import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-
+const name = 'test';
+const email = 'test@gmail.com';
+const people = 1; 
 
 void request() async {
   // This example uses the Google Books API to search for books about http.
@@ -34,6 +35,7 @@ void request() async {
     print(entry);
     hash[keyword] = entry;
     index = data.indexOf('data-params');
+    
   }
-  print(hash);
+
 }
