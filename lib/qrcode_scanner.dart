@@ -9,7 +9,7 @@ import 'open_form_ver1.dart';
 void request(String list) async {
   var local_file = HashMap();
   local_file['同行人數'] = 7;
-  local_file['墊子郵電'] = 'test@gmail.com';
+  local_file['電子郵電'] = 'test@gmail.com';
   local_file['電話'] = '09123456789';
   local_file['姓名'] = 'test';
   // This example uses the Google Books API to search for books about http.
