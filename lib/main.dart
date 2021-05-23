@@ -1,45 +1,25 @@
 import 'package:flutter/material.dart';
-import 'qrcode_scanner.dart';
-import 'http_data.dart';
-import 'screenInput.dart';
+import 'screens/main_screen.dart';
+import 'util/const.dart';
 
-void main() {
+void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-          appBar: AppBar(
-            title: Text('Covid Autofill'),
-          ),
-          body: HomePage(),
-        ),
-        routes: <String, WidgetBuilder>{
-          "/ScreenInput": (BuildContext context) => new ScreenInput()
-        });
-  }
-}
-
-class HomePage extends StatelessWidget {
-  final TextEditingController myController = new TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-        child: Column(children: <Widget>[
-      ElevatedButton(
-        child: Text('QEcode Scanner'),
-        onPressed: request,
-      ),
-      // entry point of Screen Input Try
-      ElevatedButton(
-          child: Text('Change to Screen Input'),
-          onPressed: () {
-            Navigator.of(context).pushNamed("/ScreenInput");
-          })
-    ]));
+      debugShowCheckedModeBanner: false,
+      title: Constants.appName,
+      theme: Constants.lightTheme,
+      darkTheme: Constants.darkTheme,
+      home: MainScreen(),
+    );
   }
 }
