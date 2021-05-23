@@ -40,5 +40,4 @@ void request() async {
     final_url += "entry.${value}=${local_file[key]}&";
   });
   print(final_url);
-  
 }

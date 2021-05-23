@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'qrcode_scanner.dart';
 
-import 'http_data.dart';
 void main() {
   runApp(MyApp());
 }
@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
     return Center(
       child: ElevatedButton(
         child: Text('QRcode Scanner'),
-        onPressed: request,
+        onPressed: () => runApp(QrcodeScanner()),
     ));
   }
 

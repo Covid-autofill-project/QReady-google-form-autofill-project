@@ -2,9 +2,57 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'dart:collection';
+import 'package:http/http.dart' as http;
+import 'open_form_ver1.dart';
+
+void request(String list) async {
+  var local_file = HashMap();
+  local_file['同行人數'] = 7;
+  local_file['墊子郵電'] = 'test@gmail.com';
+  local_file['電話'] = '09123456789';
+  local_file['姓名'] = 'test';
+  // This example uses the Google Books API to search for books about http.
+  // https://developers.google.com/books/docs/overview
+  var url = Uri.parse(list);
+  // Await the http get response, then decode the json-formatted response.
+  var response = await http.get(url);
+  var data = response.body;
+  var index = data.indexOf('data-params');
+
+  var hash = HashMap();
+  while(index != -1){
+    print("Input:");
+    data = data.substring((index + 11));
+    var keyword;
+    var entry = data;
+    for(int i = 0; i < 3; ++i){
+      var start = entry.indexOf('[');
+      entry = entry.substring((start+1));
+      if(i==0){
+        entry = entry.substring(entry.indexOf(';')+1);
+        keyword = entry.substring(0, entry.indexOf('&'));
+        print(keyword);
+      }
+    }
+    var end = entry.indexOf(',');
+    entry = entry.substring(0, end);
+    print(entry);
+    hash[keyword] = entry;
+    index = data.indexOf('data-params');
+  }
+  var finalurl = list+"?";
+  hash.forEach((key, value) {
+    finalurl += "entry.${value}=${local_file[key]}&";
+  });
+  print(finalurl);
+  runApp(FormView(url:finalurl));
+  //var posturi = Uri.parse(final_url);
+  //var postresponse = await http.post(posturi);
+  //print(postresponse.statusCode);
 
 
-void activate() => runApp(QrcodeScanner());
+}
 
 class QrcodeScanner extends StatefulWidget {
   @override
@@ -32,7 +80,7 @@ class _QrcodeScannerState extends State<QrcodeScanner> {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           '#ff6666', 'Cancel', true, ScanMode.QR);
       print(barcodeScanRes);
-      
+      request(barcodeScanRes);
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
