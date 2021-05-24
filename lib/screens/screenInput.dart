@@ -14,11 +14,11 @@ class _ScreenInput extends State<ScreenInput> {
   final content = new ContentStorage();
   var info = new Content("姓名", "電話", "電子郵件", "身分證字號");
   
-  @override
-  void didUpdateWidget(ScreenInput old) {
-    super.didUpdateWidget(old);
-    // print(this.info);
-  }
+  // @override
+  // void didUpdateWidget(ScreenInput old) {
+  //   super.didUpdateWidget(old);
+  //   // print(this.info);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -61,14 +61,14 @@ class _ScreenInput extends State<ScreenInput> {
                             hintText: '身分證字號',
                           ),
                           controller: idController)),
-                  TextButton(
+                  ElevatedButton(
                     child: Text('確認'),
                     onPressed: btnEvent,
                   ),
-                  TextButton(
-                    child: Text('印出儲存內容'),
-                    onPressed: btnEventJSONoutput,
-                  )
+                  // ElevatedButton(
+                  //   child: Text('印出儲存內容'),
+                  //   onPressed: btnEventJSONoutput,
+                  // )
                 ]
               )
             )

@@ -4,14 +4,18 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'dart:collection';
 import 'package:http/http.dart' as http;
-import 'open_form_ver1.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'screens/saveJson.dart';
 
 void request(String list) async {
+
+  var info = await ContentStorage().readContent(); // Read File
+
   var localfile = HashMap();
   localfile['同行人數'] = 7;
-  localfile['電子郵電'] = 'test@gmail.com';
-  localfile['電話'] = '09123456789';
-  localfile['姓名'] = 'test';
+  localfile['電子郵電'] = info.email;
+  localfile['電話'] = info.phone;
+  localfile['姓名'] = info.name;
   // This example uses the Google Books API to search for books about http.
   // https://developers.google.com/books/docs/overview
   var url = Uri.parse(list);
@@ -46,12 +50,10 @@ void request(String list) async {
     finalurl += "entry.$value=${localfile[key]}&";
   });
   print(finalurl);
-  runApp(FormView(url:finalurl));
+  runApp(_launchURL(finalurl));
   //var posturi = Uri.parse(final_url);
   //var postresponse = await http.post(posturi);
   //print(postresponse.statusCode);
-
-
 }
 
 Future<void> scanQR() async {
@@ -70,6 +72,16 @@ Future<void> scanQR() async {
   // message was in flight, we want to discard the reply rather than calling
   // setState to update our non-existent appearance.
 
+}
+
+_launchURL(url) async {
+  // const url =
+      // "https://docs.google.com/forms/d/e/1FAIpQLScw30Eq9oRONqVv_tLolp0BubC8LfIMllCgffOoLbD7MJpuBg/viewform?emailAddress=123@gmail.com&entry.770857854=%E5%8A%89%E8%B1%AA%E5%B2%A1&entry.1613430569=1";
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'could not launch $url';
+  }
 }
 
 /** 
