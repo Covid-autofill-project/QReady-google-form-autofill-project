@@ -1,31 +1,25 @@
 import 'package:flutter/material.dart';
-import 'qrcode_scanner.dart';
+import 'screens/main_screen.dart';
+import 'util/const.dart';
 
-void main() {
+void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-      appBar: AppBar(
-        title: Text('Covid Autofill'),
-      ),
-      body: HomePage(),
-    ));
+      debugShowCheckedModeBanner: false,
+      title: Constants.appName,
+      theme: Constants.lightTheme,
+      darkTheme: Constants.darkTheme,
+      home: MainScreen(),
+    );
   }
-}
-
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: ElevatedButton(
-        child: Text('QRcode Scanner'),
-        onPressed: () => runApp(QrcodeScanner()),
-    ));
-  }
-
 }
