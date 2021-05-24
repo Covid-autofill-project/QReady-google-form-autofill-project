@@ -1,6 +1,7 @@
 //import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'screens/main_screen.dart';
 //import 'package:url_launcher/url_launcher.dart';
 
 // open the form in an in-app brower (not outside app (e.g. chrome, safari..))
@@ -35,9 +36,26 @@ class _FormView extends State<FormView> {
 
   @override
   Widget build(BuildContext context) {
-    return InAppWebView(
-      key: webViewKey,
-      initialUrlRequest: URLRequest(url: Uri.parse(widget.url)),
-    );
+    return MaterialApp( 
+      home: Scaffold( 
+        body: Container(
+          child: Column(children: <Widget>[
+            // back to main screen fail
+            // ElevatedButton(
+            //   child: Text('回首頁'),
+            //   onPressed: () => MainScreen(),
+            // ),
+            Expanded(
+              child: InAppWebView(
+                key: webViewKey,
+                initialUrlRequest: URLRequest(url: Uri.parse(widget.url)),
+              ),
+            ),
+          ]
+        ),
+      ),
+    )
+  );
+
   }
 }
