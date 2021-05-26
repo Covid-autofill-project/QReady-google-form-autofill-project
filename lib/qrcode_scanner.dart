@@ -7,35 +7,93 @@ import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 import 'screens/saveJson.dart';
 
+// Creat hsah map for keywords, many to one hash map
+Map<String, String> CreateMap(Map<List<String>, String> map) {
+  var newMap = <String, String>{};
+  for (var entry in map.entries) {
+    var keyList = entry.key;
+    for (var key in keyList) {
+      newMap[key] = entry.value;
+    }
+  }
+  return newMap;
+}
+
 void request(String list) async {
 
+  // Get info in the local file (save in json, saveJson.dart)
   var info = await ContentStorage().readContent(); // Read File
 
   var localfile = HashMap();
-  localfile['同行人數'] = 7;
-  localfile['電子郵電'] = info.email;
+  localfile['同行人數'] = 1;
+  localfile['身分證字號'] = info.id;
+  localfile['電子郵件'] = info.email;
   localfile['電話'] = info.phone;
   localfile['姓名'] = info.name;
   // This example uses the Google Books API to search for books about http.
   // https://developers.google.com/books/docs/overview
-  var url = Uri.parse(list);
+  
+  // ************ Get the Full redirect url ************ 
   // Await the http get response, then decode the json-formatted response.
+  final client = http.Client();
+  final request = new http.Request('GET', Uri.parse(list))
+  ..followRedirects = false;
+  final responseFull = await client.send(request);
+  String fullUrlString = responseFull.headers['location'].toString();
+  
+  var url;
+  var finalurl;
+  // print(fullUrlString);
+  // long url
+  if (["",null, false, "null"].contains(fullUrlString)){
+    // print("long url");
+    finalurl = list;
+    url = Uri.parse(list);
+  }
+  // Short url, if it is not short url, the fullUrlString will be null
+  else{
+    // print("redirect url");
+    finalurl = fullUrlString;
+    url = Uri.parse(fullUrlString);
+  }
+  // ************ Get the Full redirect url ************ 
+   
   var response = await http.get(url);
   var data = response.body;
   var index = data.indexOf('data-params');
+
+  // The keyword hash map to check if the title in the form contain keyword
+  var keywordMap = CreateMap({
+    ['姓名', '貴姓', '大名','稱呼','聯絡人']:"姓名",
+    ['電話', '手機']:"電話",
+    ['電子郵件', '郵件', '信箱','mail','E-mail']:"電子郵件",
+    ['身分證字號']:"身分證字號",
+    ['同行人數', '人數', '陪同']:"同行人數"
+  });
+
 
   var hash = HashMap();
   while(index != -1){
     print("Input:");
     data = data.substring((index + 11));
     var keyword;
+    var title;
     var entry = data;
     for(int i = 0; i < 3; ++i){
       var start = entry.indexOf('[');
       entry = entry.substring((start+1));
       if(i==0){
         entry = entry.substring(entry.indexOf(';')+1);
-        keyword = entry.substring(0, entry.indexOf('&'));
+        title = entry.substring(0, entry.indexOf('&'));
+
+        // Go through the keywordMap, to find if title contain key
+        keywordMap.forEach((key, value) {
+          if (title.contains(key)){
+            keyword = keywordMap[key];
+            // print(keywordMap[key]);
+          }
+        });
+
         print(keyword);
       }
     }
@@ -45,7 +103,13 @@ void request(String list) async {
     hash[keyword] = entry;
     index = data.indexOf('data-params');
   }
-  var finalurl = list+"?";
+  
+  // check url "?"
+  if (finalurl.contains("?"))
+    finalurl = finalurl+"&";
+  else
+    finalurl = finalurl+"?";
+  
   hash.forEach((key, value) {
     finalurl += "entry.$value=${localfile[key]}&";
   });
