@@ -49,7 +49,7 @@ class ContentStorage {
       return Content.fromJson(infoMap);
     } catch (e) {
       // If encountering an error, return 0
-      print("Error");
+      print("Fail to read content in json file!!  Error occurs in file saveJson.dart");
       return new Content("姓名", "電話", "電子郵件", "身分證字號");
     }
   }

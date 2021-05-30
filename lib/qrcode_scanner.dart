@@ -121,6 +121,7 @@ void request(String list) async {
 }
 
 Future<void> scanQR() async {
+  print("Open QR scanner");
   String barcodeScanRes;
     // Platform messages may fail, so we use a try/catch PlatformException.
   try {
@@ -139,8 +140,6 @@ Future<void> scanQR() async {
 }
 
 _launchURL(url) async {
-  // const url =
-      // "https://docs.google.com/forms/d/e/1FAIpQLScw30Eq9oRONqVv_tLolp0BubC8LfIMllCgffOoLbD7MJpuBg/viewform?emailAddress=123@gmail.com&entry.770857854=%E5%8A%89%E8%B1%AA%E5%B2%A1&entry.1613430569=1";
   if (await canLaunch(url)) {
     await launch(url);
   } else {

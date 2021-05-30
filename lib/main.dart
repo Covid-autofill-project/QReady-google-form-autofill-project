@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'screens/main_screen.dart';
+import 'screens/tutorial.dart';
 import 'util/const.dart';
 
 void main() async {
