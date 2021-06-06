@@ -1,4 +1,4 @@
-package com.example.covid_autofill
+package com.example.QReady
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Constants {
-  static String appName = "Covid</>Autofill";
+  static String appName = "QReady";
 
   //Colors for theme
   static Color lightPrimary = Color(0xfffcfcff);

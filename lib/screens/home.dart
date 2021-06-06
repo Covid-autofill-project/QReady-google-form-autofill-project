@@ -1,7 +1,10 @@
 
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../util/const.dart';
 import './tutorial.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
 
 class Home extends StatelessWidget {
   @override
@@ -27,10 +30,16 @@ class Home extends StatelessWidget {
       //   ),
       // ),
     // ); 
-    TextStyle textStyle = new TextStyle(
+    TextStyle titleStyle = new TextStyle(
       fontSize: 30.0,
       fontWeight: FontWeight.w900,
-      color: Constants.lightPrimary,
+      // color: Constants.darkAccent,
+      color: Colors.black,
+    );
+    TextStyle contentStyle = new TextStyle(
+      fontSize: 20.0,
+      fontWeight: FontWeight.w500,
+      color: Colors.black87,
     );
     TextStyle btnTextStyle = new TextStyle(
       fontSize: 15.0,
@@ -41,6 +50,11 @@ class Home extends StatelessWidget {
       // primary: Colors.purple,
       primary: Constants.lightAccent,
       padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+      shape: (
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+        )
+      ),
     );
 
     return  Container(
@@ -49,12 +63,26 @@ class Home extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(flex: 1, child: Row()),
-          Expanded(flex: 1, child: Row()),
-          Expanded(flex: 1, child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [Text(Constants.appName, style: textStyle)])),
+          Expanded(flex: 3, child: Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[Image.asset('assets/icon/logo_tran_white.png')])),
+          Expanded(flex: 1, child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [Text(Constants.appName, style: titleStyle)])),
+          Expanded(flex: 1, child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [Text("QR code 掃描、自動填寫表單", style: contentStyle)])),
           Expanded(flex: 1, child: Row(mainAxisAlignment: MainAxisAlignment.center,children:[ElevatedButton(onPressed: () => {handleOpenTutorialBtn()} , style: btnStyle ,child: Text("Tutorial", style: btnTextStyle,))])),
+          Expanded(flex: 1, child: Row(mainAxisAlignment: MainAxisAlignment.center,children:[
+            IconButton( icon: SvgPicture.asset('assets/icon/facebook.svg',height: 25.0,width: 25.0,allowDrawingOutsideViewBox: true,), onPressed: () =>  _launchURL("https://www.facebook.com/106618268300742/")),
+            IconButton( icon: SvgPicture.asset('assets/icon/help_black_24dp.svg',height: 25.0,width: 25.0,allowDrawingOutsideViewBox: true,), onPressed: () =>  _launchURL("https://docs.google.com/forms/d/e/1FAIpQLSeNQ4uKQnz3TstBErG86nJPwmMURUE6A87v16srENOqAeQtAQ/viewform?usp=sf_link")),
+          ])),
           Expanded(flex: 1, child: Row()),
         ],
     ));
+  }
+
+  _launchURL(url) async {
+    url = Uri.encodeFull(url); // url to url encode.
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'could not launch $url';
+    }
   }
 
   handleOpenTutorialBtn() {

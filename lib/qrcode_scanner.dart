@@ -140,6 +140,7 @@ Future<void> scanQR() async {
 }
 
 _launchURL(url) async {
+  url = Uri.encodeFull(url); // url to url encode.
   if (await canLaunch(url)) {
     await launch(url);
   } else {

@@ -1,4 +1,4 @@
-# covid_autofill
+# QReady
 
 An application for automately fill the self-check list
 

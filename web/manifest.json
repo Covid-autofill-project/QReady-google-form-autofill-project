@@ -1,6 +1,6 @@
 {
-    "name": "covid_autofill",
-    "short_name": "covid_autofill",
+    "name": "QReady",
+    "short_name": "QReady",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

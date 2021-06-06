@@ -12,8 +12,8 @@ List<String> descriptions = [
 List<String> otherInfos = [
   "我們不會將你的所有資料上傳到雲端",
   "",
-  "",
-  "這是由台大與清大學生開發的 App",
+  "我們幫助你完成自動填入資料",
+  "到FB粉專，或透過Google表單聯絡我們",
 ];
 
 List<AssetImage> images = [

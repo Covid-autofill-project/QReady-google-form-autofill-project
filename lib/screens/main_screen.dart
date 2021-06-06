@@ -21,6 +21,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: PageView(
         physics: NeverScrollableScrollPhysics(),
         controller: _pageController,
@@ -33,6 +34,9 @@ class _MainScreenState extends State<MainScreen> {
           //   onPressed: () => scanQR(),
           //   child: Text('Start QR scan')
           // ),
+          Center(
+            child: null,
+          ),
           Center(
             child: ScreenInput(pc: _pageController),
           )
