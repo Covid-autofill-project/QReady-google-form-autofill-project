@@ -1,6 +1,16 @@
-# covid_autofill
+# QReady
 
 An application for automately fill the self-check list
+
+## install on IOS device
+1. Change the correct IOS version in Runner.xcworkspace file (Both Runner and target)
+2. open terminal and go to your flutter project, run 'flutter clean'
+3. run 'flutter pub get'
+4. run 'cd ios', and run 'pod install'
+5. open Runner.xcworkspace file, and run on your device
+
+## icon and launch page setting
+- ios https://youtu.be/BjV4RMkVY6w?t=340 
 
 ## Getting Started
 

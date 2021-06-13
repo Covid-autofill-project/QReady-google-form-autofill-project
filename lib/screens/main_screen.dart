@@ -1,7 +1,6 @@
-import 'package:covid_autofill/qrcode_scanner.dart';
 import 'package:flutter/material.dart';
 import 'home.dart';
-import 'screeninput.dart';
+import './screenInput.dart';
 import '../qrcode_scanner.dart';
 
 class MainScreen extends StatefulWidget {
@@ -15,13 +14,14 @@ class _MainScreenState extends State<MainScreen> {
 
   List icons = [
     Icons.home,
-    Icons.add,
+    Icons.camera,
     Icons.person,
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: PageView(
         physics: NeverScrollableScrollPhysics(),
         controller: _pageController,
@@ -30,43 +30,66 @@ class _MainScreenState extends State<MainScreen> {
           Center(
             child: Home(),
           ),
-          ElevatedButton(
-            onPressed: () => scanQR(),child: Text('Start QR scan')
-          )
-          ,
+          // ElevatedButton(   // this button is never used since the qr code scanner is triggered by floating button # ken
+          //   onPressed: () => scanQR(),
+          //   child: Text('Start QR scan')
+          // ),
           Center(
-            child: ScreenInput(),
+            child: null,
+          ),
+          Center(
+            child: ScreenInput(pc: _pageController),
           )
         ],
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            SizedBox(width: 7),
-            buildTabIcon(0),
-            buildTabIcon(1),
-            buildTabIcon(2),
-            SizedBox(width: 7),
-          ],
-        ),
-        color: Theme.of(context).primaryColor,
-        shape: CircularNotchedRectangle(),
-      ),
-      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+      bottomNavigationBar: extendedButtonNavigationBar(),
+      floatingActionButton: extendedFloatingActionButton(),
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling, // this property is never used since the location of floating button never changes # ken
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        elevation: 10.0,
-        child: Icon(
-          Icons.add,
-        ),
-        onPressed: () => scanQR(),
-      ),
+        
     );
   }
+  
+  Widget extendedButtonNavigationBar() { // hide the navigation bar in some pages
+    return AnimatedOpacity(
+        opacity: (_page == 1) ? 0.0 : 1.0, 
+        duration: Duration(microseconds: 1000),
+        curve: Curves.ease,
+        child:BottomAppBar(
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              buildTabIcon(0),
+              buildTabIcon(2),
+            ],
+          ),
+          color: Theme.of(context).primaryColor,
+          shape: CircularNotchedRectangle(),
+        ),
+    );
+  }
+  Widget extendedFloatingActionButton() { // Hide the floating button in some pages
+      return Visibility(
+        maintainState: true,
+        maintainAnimation: true,
+        visible: (_page!= 1)? true : false,
+        child: Container(
+          child: SizedBox(
+              height: 100,
+              width:  100,
+              child: FloatingActionButton(
+                isExtended: true,
+                elevation: 10.0,
+                child: Icon(Icons.camera_alt_outlined, size: 50,),
+                onPressed: () => scanQR(),
+          )
+          )
+          
+      ));
+  }
 
-  void navigationTapped(int page) {
+  void navigationTapped(int page) {  // Is there anyone  call this function? the function seems useless? # ken
     _pageController.jumpToPage(page);
   }
 
@@ -83,13 +106,14 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   void onPageChanged(int page) {
+    print("Current page: $page.......");
     setState(() {
       this._page = page;
     });
   }
 
   buildTabIcon(int index) {
-    if(index != 1){
+    if(index != 1){ 
       return IconButton(
         icon: Icon(
           icons[index],

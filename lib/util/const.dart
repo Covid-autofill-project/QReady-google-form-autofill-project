@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Constants {
-  static String appName = "Foody Bite";
+  static String appName = "QReady";
 
   //Colors for theme
   static Color lightPrimary = Color(0xfffcfcff);
@@ -9,6 +9,7 @@ class Constants {
   static Color lightAccent = Color(0xff5563ff);
   static Color darkAccent = Color(0xff5563ff);
   static Color lightBG = Color(0xfffcfcff);
+  static Color lightMainBG  = Color(0xfff5f0f6);
   static Color darkBG = Colors.black;
   static Color ratingBG = Colors.yellow[600]!;
 
@@ -18,6 +19,7 @@ class Constants {
     accentColor: lightAccent,
     //cursorColor: lightAccent,
     scaffoldBackgroundColor: lightBG,
+    cardColor: darkPrimary,
     appBarTheme: AppBarTheme(
       textTheme: TextTheme(
         headline6: TextStyle(
@@ -34,6 +36,7 @@ class Constants {
     backgroundColor: darkBG,
     primaryColor: darkPrimary,
     accentColor: darkAccent,
+    cardColor: lightPrimary,// use for cancel button
     scaffoldBackgroundColor: darkBG,
     //cursorColor: darkAccent,
     appBarTheme: AppBarTheme(
